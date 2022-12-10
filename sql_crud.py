@@ -95,6 +95,37 @@ razvan_moruju = Programmer(
 #session.add(razvan_moruju)
 #session.commit()
 
+# query only one record
+# programer = session.query(Programmer).filter_by(id=7).first()
+# programer.famous_for = "World President"
+
+# session.commit()
+
+#query multiple records
+# people = session.query(Programmer)
+# for person in people:
+#     if person.gender == "F":
+#         person.gender = "Female"
+#     else:
+#         person.gender = "Male"
+#     session.commit()
+
+# delete a single record
+fname = input("Enter first name: ")
+lname = input("Enter last name: ")
+programmer = session.query(Programmer).filter_by(first_name = fname, last_name = lname).first()
+if programmer is not None:
+    print("Programmer Found: ", programmer.first_name + " " + programmer.last_name)
+    confirmation= input("Are you sure you want to delete? (y/n) ")
+    if confirmation.lower() == "y":
+        session.delete(programmer)
+        session.commit()
+        print("Programmer deleted.")
+    else:
+        print("Programmer not deleted")
+else:
+    print("No record found!")
+
 # query database to find all programmers
 programmers = session.query(Programmer)
 for programmer in programmers:
